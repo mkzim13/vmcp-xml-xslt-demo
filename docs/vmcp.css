@@ -1,0 +1,272 @@
+/* vmcp.css
+ *
+ * Styling for the Vertical Mode Configuration Panel (VMCP) XML/XSLT demo.
+ * The goal is a clean, cockpit-reference / avionics-manual aesthetic:
+ * - Dark header
+ * - Clear typography
+ * - Subtle borders and grouping
+ */
+
+/* ----- Global page styling ----- */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+                 sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #0f1722; /* dark blue/gray */
+    color: #e6edf7;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 16px 40px 16px;
+}
+
+/* ----- Page header ----- */
+
+.header {
+    background: linear-gradient(90deg, #111827, #020617);
+    padding: 16px 16px 12px 16px;
+    border-bottom: 2px solid #1f2937;
+    margin: 0 0 20px 0;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f9fafb;
+}
+
+.header .subtitle {
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: #9ca3af;
+}
+
+/* ----- Section blocks ----- */
+
+.section {
+    background-color: #020617;
+    border: 1px solid #1e293b;
+    border-radius: 4px;
+    padding: 16px 16px 12px 16px;
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e5e7eb;
+    border-bottom: 1px solid #374151;
+    padding-bottom: 4px;
+}
+
+/* ----- Spacing between subsections and bulleted lists ----- */
+.subsection {
+    margin-bottom: 24px;   /* adds spacing between subsections */
+}
+
+.subsection ul {
+    margin-top: 8px;
+    margin-bottom: 0;
+    padding-left: 20px;    /* standard bullet indent */
+}
+
+.subsection li {
+    margin-bottom: 4px;    /* small spacing between bullets */
+}
+
+/* ----- Mode cards ----- */
+
+.mode-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mode-card {
+    background-color: #020617;
+    border: 1px solid #1f2937;
+    border-radius: 4px;
+    padding: 10px 12px;
+    box-shadow: 0 0 0 1px #020617;
+}
+
+.mode-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+}
+
+.mode-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f9fafb;
+}
+
+.mode-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9ca3af;
+}
+
+.mode-description {
+    font-size: 0.85rem;
+    color: #d1d5db;
+    margin: 4px 0 6px 0;
+}
+
+.mode-engagement {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+/* Visual hint for push/pull */
+
+.engagement-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: 6px;
+}
+
+.engagement-push {
+    background-color: #0369a1;
+    color: #e0f2fe;
+}
+
+.engagement-pull {
+    background-color: #16a34a;
+    color: #ecfdf5;
+}
+
+/* ----- Targets table ----- */
+
+.targets-table-wrapper {
+    overflow-x: auto;
+}
+
+.targets-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 4px;
+}
+
+.targets-table th,
+.targets-table td {
+    border: 1px solid #1f2937;
+    padding: 6px 8px;
+    text-align: left;
+}
+
+.targets-table thead {
+    background-color: #111827;
+}
+
+.targets-table th {
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #e5e7eb;
+}
+
+.targets-table tbody tr:nth-child(even) {
+    background-color: #020617;
+}
+
+.targets-table tbody tr:nth-child(odd) {
+    background-color: #020617;
+}
+
+/* Hint for limit columns */
+
+.targets-table td.limits {
+    font-family: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco,
+                 Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.8rem;
+}
+
+/* ----- Annunciations ----- */
+
+.annunciations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.annunciation-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid #1f2937;
+    background-color: #020617;
+}
+
+.annunciation-text {
+    margin-right: 6px;
+}
+
+/* Example colors – could be driven by data in future */
+.annunciation-color-green {
+    color: #4ade80;
+}
+
+.annunciation-color-blue {
+    color: #38bdf8;
+}
+
+.annunciation-color-white {
+    color: #f9fafb;
+}
+
+/* ----- Constraints / notes ----- */
+
+.constraint-note {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-top: 2px;
+}
+
+/* ----- Small utility text ----- */
+
+.meta {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 4px;
+}
+
+code {
+    font-family: "JetBrains Mono", "Fira Code", SFMono-Regular, Menlo, Monaco,
+                 Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.8rem;
+    background-color: #020617;
+    padding: 2px 4px;
+    border-radius: 3px;
+    border: 1px solid #1f2937;
+}
