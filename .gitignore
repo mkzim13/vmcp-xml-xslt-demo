@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Python cache
+__pycache__/
+
+# Temporary files
+*.tmp
+*.log
+
+# System files
+Thumbs.db
