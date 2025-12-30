@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="vmcp.xsl"?>
+<VMCP xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="xml/schema/vmcp.xsd">
+
+
+    <!-- ============================================================
+         PANEL DEFINITION
+         ============================================================ -->
+    <Panel>
+        <AltitudeSelector>
+            <Increment>100</Increment>
+            <SupportsPush>true</SupportsPush>
+            <SupportsPull>true</SupportsPull>
+        </AltitudeSelector>
+
+        <VSFPASelector>
+            <VSRange>
+                <Min>-6000</Min>
+                <Max>6000</Max>
+            </VSRange>
+            <FPARange>
+                <Min>-9.0</Min>
+                <Max>9.0</Max>
+            </FPARange>
+            <SupportsPush>true</SupportsPush>
+            <SupportsPull>true</SupportsPull>
+        </VSFPASelector>
+
+        <ModeControls>
+            <SupportsOPCLB>true</SupportsOPCLB>
+            <SupportsOPDES>true</SupportsOPDES>
+            <SupportsManagedModes>true</SupportsManagedModes>
+        </ModeControls>
+
+        <AnnunciationDisplay>
+            <ShowsActiveMode>true</ShowsActiveMode>
+            <ShowsArmedMode>true</ShowsArmedMode>
+            <ShowsTargetValues>true</ShowsTargetValues>
+        </AnnunciationDisplay>
+    </Panel>
+
+
+    <!-- ============================================================
+         MODES
+         ============================================================ -->
+    <Modes>
+
+        <!-- V/S -->
+        <Mode name="VS" category="Selected">
+            <Description>
+                Vertical Speed (V/S) mode allows the pilot to command a specific
+                climb or descent rate in feet per minute.
+            </Description>
+            <Activation>
+                Activated by pulling the Vertical Speed selector knob.
+            </Activation>
+            <Inputs>
+                <Input>Selected altitude</Input>
+                <Input>Vertical speed value (ft/min)</Input>
+            </Inputs>
+            <Behavior>
+                Aircraft adjusts pitch to maintain the selected vertical speed.
+            </Behavior>
+        </Mode>
+
+        <!-- FPA -->
+        <Mode name="FPA" category="Selected">
+            <Description>
+                Flight Path Angle (FPA) mode commands a climb or descent angle
+                in degrees relative to the horizon.
+            </Description>
+            <Activation>
+                Activated by pulling the FPA selector knob.
+            </Activation>
+            <Inputs>
+                <Input>Selected altitude</Input>
+                <Input>Flight path angle (degrees)</Input>
+            </Inputs>
+            <Behavior>
+                Aircraft maintains the selected pitch angle.
+            </Behavior>
+        </Mode>
+
+        <!-- OP CLB -->
+        <Mode name="OP CLB" category="Selected">
+            <Description>
+                Open Climb provides a rapid climb using selected speed and climb
+                thrust, ignoring FMS vertical constraints.
+            </Description>
+            <Activation>
+                Activated by pulling the Altitude selector knob upward.
+            </Activation>
+            <Inputs>
+                <Input>Selected altitude</Input>
+                <Input>Selected speed</Input>
+            </Inputs>
+            <Behavior>
+                Aircraft pitches to maintain selected speed with climb thrust.
+            </Behavior>
+        </Mode>
+
+        <!-- OP DES -->
+        <Mode name="OP DES" category="Selected">
+            <Description>
+                Open Descent provides a rapid descent using selected speed and
+                idle thrust, ignoring FMS vertical constraints.
+            </Description>
+            <Activation>
+                Activated by pulling the Altitude selector knob downward.
+            </Activation>
+            <Inputs>
+                <Input>Selected altitude</Input>
+                <Input>Selected speed</Input>
+            </Inputs>
+            <Behavior>
+                Aircraft pitches to maintain selected speed with idle thrust.
+            </Behavior>
+        </Mode>
+
+        <!-- Managed Climb -->
+        <Mode name="CLB" category="Managed">
+            <Description>
+                Managed Climb follows the FMS vertical profile, including
+                altitude constraints and managed speeds.
+            </Description>
+            <Activation>
+                Activated by pushing the Altitude selector knob upward.
+            </Activation>
+            <Inputs>
+                <Input>Selected altitude</Input>
+                <Input>FMS vertical profile</Input>
+            </Inputs>
+            <Behavior>
+                Aircraft follows the FMS-defined climb path.
+            </Behavior>
+        </Mode>
+
+        <!-- Managed Descent -->
+        <Mode name="DES" category="Managed">
+            <Description>
+                Managed Descent follows the FMS vertical profile, including
+                altitude constraints and managed speeds.
+            </Description>
+            <Activation>
+                Activated by pushing the Altitude selector knob downward.
+            </Activation>
+            <Inputs>
+                <Input>Selected altitude</Input>
+                <Input>FMS vertical profile</Input>
+            </Inputs>
+            <Behavior>
+                Aircraft follows the FMS-defined descent path.
+            </Behavior>
+        </Mode>
+
+        <!-- ALT* -->
+        <Mode name="ALT*" category="Automatic">
+            <Description>
+                Altitude Capture engages automatically when approaching the
+                selected altitude.
+            </Description>
+            <Activation>
+                Automatically activated when entering the capture zone.
+            </Activation>
+            <Inputs>
+                <Input>Selected altitude</Input>
+                <Input>Current altitude</Input>
+                <Input>Vertical speed</Input>
+            </Inputs>
+            <Behavior>
+                Aircraft reduces vertical speed to capture the selected altitude.
+            </Behavior>
+        </Mode>
+
+        <!-- ALT -->
+        <Mode name="ALT" category="Automatic">
+            <Description>
+                Altitude Hold maintains the aircraft at the selected altitude.
+            </Description>
+            <Activation>
+                Automatically activated after ALT* completes capture.
+            </Activation>
+            <Inputs>
+                <Input>Selected altitude</Input>
+            </Inputs>
+            <Behavior>
+                Aircraft maintains level flight at the selected altitude.
+            </Behavior>
+        </Mode>
+
+    </Modes>
+
+
+    <!-- ============================================================
+         TRANSITIONS
+         ============================================================ -->
+    <Transitions>
+
+        <!-- Automatic transitions -->
+        <Transition from="VS" to="ALT*">
+            <Trigger>Aircraft approaches selected altitude</Trigger>
+        </Transition>
+
+        <Transition from="FPA" to="ALT*">
+            <Trigger>Aircraft approaches selected altitude</Trigger>
+        </Transition>
+
+        <Transition from="OP CLB" to="ALT*">
+            <Trigger>Aircraft approaches selected altitude</Trigger>
+        </Transition>
+
+        <Transition from="OP DES" to="ALT*">
+            <Trigger>Aircraft approaches selected altitude</Trigger>
+        </Transition>
+
+        <Transition from="CLB" to="ALT*">
+            <Trigger>Aircraft approaches selected altitude</Trigger>
+        </Transition>
+
+        <Transition from="DES" to="ALT*">
+            <Trigger>Aircraft approaches selected altitude</Trigger>
+        </Transition>
+
+        <Transition from="ALT*" to="ALT">
+            <Trigger>Selected altitude captured</Trigger>
+        </Transition>
+
+        <Transition from="ALT" to="ALT*">
+            <Trigger>Selected altitude changed</Trigger>
+        </Transition>
+
+
+        <!-- Pilot‑initiated transitions -->
+        <Transition from="ALT" to="VS">
+            <Trigger>Pull V/S knob</Trigger>
+        </Transition>
+
+        <Transition from="ALT" to="FPA">
+            <Trigger>Pull FPA knob</Trigger>
+        </Transition>
+
+        <Transition from="ALT" to="OP CLB">
+            <Trigger>Pull altitude knob upward</Trigger>
+        </Transition>
+
+        <Transition from="ALT" to="OP DES">
+            <Trigger>Pull altitude knob downward</Trigger>
+        </Transition>
+
+        <Transition from="ALT" to="CLB">
+            <Trigger>Push altitude knob upward</Trigger>
+        </Transition>
+
+        <Transition from="ALT" to="DES">
+            <Trigger>Push altitude knob downward</Trigger>
+        </Transition>
+
+        <Transition from="VS" to="FPA">
+            <Trigger>Pull FPA knob</Trigger>
+        </Transition>
+
+        <Transition from="FPA" to="VS">
+            <Trigger>Pull V/S knob</Trigger>
+        </Transition>
+
+        <Transition from="VS" to="OP CLB">
+            <Trigger>Pull altitude knob upward</Trigger>
+        </Transition>
+
+        <Transition from="VS" to="OP DES">
+            <Trigger>Pull altitude knob downward</Trigger>
+        </Transition>
+
+        <Transition from="FPA" to="OP CLB">
+            <Trigger>Pull altitude knob upward</Trigger>
+        </Transition>
+
+        <Transition from="FPA" to="OP DES">
+            <Trigger>Pull altitude knob downward</Trigger>
+        </Transition>
+
+        <Transition from="OP CLB" to="VS">
+            <Trigger>Pull V/S knob</Trigger>
+        </Transition>
+
+        <Transition from="OP CLB" to="FPA">
+            <Trigger>Pull FPA knob</Trigger>
+        </Transition>
+
+        <Transition from="OP DES" to="VS">
+            <Trigger>Pull V/S knob</Trigger>
+        </Transition>
+
+        <Transition from="OP DES" to="FPA">
+            <Trigger>Pull FPA knob</Trigger>
+        </Transition>
+
+        <Transition from="CLB" to="VS">
+            <Trigger>Pull V/S knob</Trigger>
+        </Transition>
+
+        <Transition from="CLB" to="FPA">
+            <Trigger>Pull FPA knob</Trigger>
+        </Transition>
+
+        <Transition from="DES" to="VS">
+            <Trigger>Pull V/S knob</Trigger>
+        </Transition>
+
+        <Transition from="DES" to="FPA">
+            <Trigger>Pull FPA knob</Trigger>
+        </Transition>
+
+    </Transitions>
+
+</VMCP>
+
+            
