@@ -1,6 +1,6 @@
 ### 🔗 Live Demo  
 View the rendered VMCP documentation here:  
-https://<your-username>.github.io/<your-repo>/index.xml
+https://mkzim13.github.io/vmcp-xml-xslt-demo/index.xml
 # Vertical Mode Control Panel (VMCP) — XML/XSD/XSLT Demonstration
 
 This project is a complete, end‑to‑end demonstration of an XML‑based data model, an XSD schema for validation, an XSLT transformation pipeline, and a CSS‑styled HTML output. It models a **Vertical Mode Control Panel (VMCP)** — a real subsystem found in modern commercial aircraft — and presents it as a polished, browser‑rendered technical documentation artifact.
