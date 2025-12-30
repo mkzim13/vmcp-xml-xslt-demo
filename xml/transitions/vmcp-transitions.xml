@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Transitions>
+
+    <!-- ============================================================
+         AUTOMATIC TRANSITIONS
+         ============================================================ -->
+
+    <!-- V/S → ALT* -->
+    <Transition from="VS" to="ALT*">
+        <Trigger>Aircraft approaches selected altitude</Trigger>
+        <Notes>Altitude capture zone reached</Notes>
+    </Transition>
+
+    <!-- FPA → ALT* -->
+    <Transition from="FPA" to="ALT*">
+        <Trigger>Aircraft approaches selected altitude</Trigger>
+        <Notes>Altitude capture zone reached</Notes>
+    </Transition>
+
+    <!-- OP CLB → ALT* -->
+    <Transition from="OP CLB" to="ALT*">
+        <Trigger>Aircraft approaches selected altitude</Trigger>
+        <Notes>Altitude capture zone reached</Notes>
+    </Transition>
+
+    <!-- OP DES → ALT* -->
+    <Transition from="OP DES" to="ALT*">
+        <Trigger>Aircraft approaches selected altitude</Trigger>
+        <Notes>Altitude capture zone reached</Notes>
+    </Transition>
+
+    <!-- CLB → ALT* -->
+    <Transition from="CLB" to="ALT*">
+        <Trigger>Aircraft approaches selected altitude</Trigger>
+        <Notes>Altitude capture zone reached</Notes>
+    </Transition>
+
+    <!-- DES → ALT* -->
+    <Transition from="DES" to="ALT*">
+        <Trigger>Aircraft approaches selected altitude</Trigger>
+        <Notes>Altitude capture zone reached</Notes>
+    </Transition>
+
+    <!-- ALT* → ALT -->
+    <Transition from="ALT*" to="ALT">
+        <Trigger>Selected altitude captured</Trigger>
+        <Notes>Level‑off complete</Notes>
+    </Transition>
+
+    <!-- ALT → ALT* -->
+    <Transition from="ALT" to="ALT*">
+        <Trigger>Selected altitude changed</Trigger>
+        <Notes>Begins capture of new altitude</Notes>
+    </Transition>
+
+
+    <!-- ============================================================
+         PILOT‑INITIATED TRANSITIONS
+         ============================================================ -->
+
+    <!-- ALT → V/S -->
+    <Transition from="ALT" to="VS">
+        <Trigger>Pull V/S knob</Trigger>
+        <Notes>Selected vertical speed mode</Notes>
+    </Transition>
+
+    <!-- ALT → FPA -->
+    <Transition from="ALT" to="FPA">
+        <Trigger>Pull FPA knob</Trigger>
+        <Notes>Selected flight path angle mode</Notes>
+    </Transition>
+
+    <!-- ALT → OP CLB -->
+    <Transition from="ALT" to="OP CLB">
+        <Trigger>Pull altitude knob (higher altitude)</Trigger>
+        <Notes>Selected climb</Notes>
+    </Transition>
+
+    <!-- ALT → OP DES -->
+    <Transition from="ALT" to="OP DES">
+        <Trigger>Pull altitude knob (lower altitude)</Trigger>
+        <Notes>Selected descent</Notes>
+    </Transition>
+
+    <!-- ALT → CLB/DES -->
+    <Transition from="ALT" to="CLB">
+        <Trigger>Push altitude knob (climb)</Trigger>
+        <Notes>Managed climb mode</Notes>
+    </Transition>
+
+    <Transition from="ALT" to="DES">
+        <Trigger>Push altitude knob (descent)</Trigger>
+        <Notes>Managed descent mode</Notes>
+    </Transition>
+
+    <!-- V/S → FPA -->
+    <Transition from="VS" to="FPA">
+        <Trigger>Pull FPA knob</Trigger>
+        <Notes>Switch to angle‑based guidance</Notes>
+    </Transition>
+
+    <!-- V/S → OP CLB / OP DES -->
+    <Transition from="VS" to="OP CLB">
+        <Trigger>Pull altitude knob (higher altitude)</Trigger>
+    </Transition>
+
+    <Transition from="VS" to="OP DES">
+        <Trigger>Pull altitude knob (lower altitude)</Trigger>
+    </Transition>
+
+    <!-- FPA → V/S -->
+    <Transition from="FPA" to="VS">
+        <Trigger>Pull V/S knob</Trigger>
+        <Notes>Switch to rate‑based guidance</Notes>
+    </Transition>
+
+    <!-- FPA → OP CLB / OP DES -->
+    <Transition from="FPA" to="OP CLB">
+        <Trigger>Pull altitude knob (higher altitude)</Trigger>
+    </Transition>
+
+    <Transition from="FPA" to="OP DES">
+        <Trigger>Pull altitude knob (lower altitude)</Trigger>
+    </Transition>
+
+    <!-- OP CLB → V/S / FPA -->
+    <Transition from="OP CLB" to="VS">
+        <Trigger>Pull V/S knob</Trigger>
+        <Notes>Overrides open climb</Notes>
+    </Transition>
+
+    <Transition from="OP CLB" to="FPA">
+        <Trigger>Pull FPA knob</Trigger>
+        <Notes>Overrides open climb</Notes>
+    </Transition>
+
+    <!-- OP DES → V/S / FPA -->
+    <Transition from="OP DES" to="VS">
+        <Trigger>Pull V/S knob</Trigger>
+        <Notes>Overrides open descent</Notes>
+    </Transition>
+
+    <Transition from="OP DES" to="FPA">
+        <Trigger>Pull FPA knob</Trigger>
+        <Notes>Overrides open descent</Notes>
+    </Transition>
+
+    <!-- CLB → V/S / FPA -->
+    <Transition from="CLB" to="VS">
+        <Trigger>Pull V/S knob</Trigger>
+        <Notes>Overrides managed climb</Notes>
+    </Transition>
+
+    <Transition from="CLB" to="FPA">
+        <Trigger>Pull FPA knob</Trigger>
+        <Notes>Overrides managed climb</Notes>
+    </Transition>
+
+    <!-- DES → V/S / FPA -->
+    <Transition from="DES" to="VS">
+        <Trigger>Pull V/S knob</Trigger>
+        <Notes>Overrides managed descent</Notes>
+    </Transition>
+
+    <Transition from="DES" to="FPA">
+        <Trigger>Pull FPA knob</Trigger>
+        <Notes>Overrides managed descent</Notes>
+    </Transition>
+
+</Transitions>

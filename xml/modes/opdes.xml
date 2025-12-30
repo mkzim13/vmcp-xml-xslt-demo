@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mode name="OP DES" category="Selected">
+    <Description>
+        Open Descent (OP DES) provides a rapid descent using selected speed and
+        idle thrust. The mode ignores vertical constraints in the flight plan.
+    </Description>
+
+    <Activation>
+        Activated by pulling the Altitude selector knob when the selected
+        altitude is below the current altitude.
+    </Activation>
+
+    <Inputs>
+        <Input>Selected altitude</Input>
+        <Input>Selected speed</Input>
+    </Inputs>
+
+    <Behavior>
+        The aircraft pitches to maintain selected speed while autothrust
+        commands idle thrust. The mode continues until the selected altitude
+        is approached, at which point the system transitions to ALT*.
+    </Behavior>
+</Mode>

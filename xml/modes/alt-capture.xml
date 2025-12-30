@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mode name="ALT*" category="Automatic">
+    <Description>
+        Altitude Capture (ALT*) is an automatic mode that engages when the
+        aircraft is approaching the selected altitude. It ensures a smooth
+        transition from climb or descent to level flight.
+    </Description>
+
+    <Activation>
+        Automatically activated when the aircraft enters the capture zone of
+        the selected altitude.
+    </Activation>
+
+    <Inputs>
+        <Input>Selected altitude</Input>
+        <Input>Current altitude</Input>
+        <Input>Vertical speed</Input>
+    </Inputs>
+
+    <Behavior>
+        The aircraft reduces vertical speed to capture the selected altitude.
+        Once the altitude is captured, the system transitions to ALT mode.
+    </Behavior>
+</Mode>

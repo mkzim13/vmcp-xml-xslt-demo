@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <!-- ============================================================
+         VMCP XML Schema
+         Defines the structure for representing the Vertical Mode
+         Control Panel (VMCP), including panel components, vertical
+         modes, and mode transitions.
+         ============================================================ -->
+
+    <!-- ===========================
+         Root Element: VMCP
+         =========================== -->
+    <xs:element name="VMCP">
+        <xs:annotation>
+            <xs:documentation>
+                Root element representing the entire Vertical Mode Control Panel
+                subsystem, including the physical panel layout, supported modes,
+                and mode transition logic.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Panel" type="PanelType"/>
+                <xs:element name="Modes" type="ModesType"/>
+                <xs:element name="Transitions" type="TransitionsType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ===========================
+         Panel Definition
+         =========================== -->
+    <xs:complexType name="PanelType">
+        <xs:annotation>
+            <xs:documentation>
+                Describes the physical layout and capabilities of the VMCP,
+                including selectors, controls, and annunciation elements.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="AltitudeSelector" type="AltitudeSelectorType"/>
+            <xs:element name="VSFPASelector" type="VSFPASelectorType"/>
+            <xs:element name="ModeControls" type="ModeControlsType"/>
+            <xs:element name="AnnunciationDisplay" type="AnnunciationDisplayType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Altitude Selector -->
+    <xs:complexType name="AltitudeSelectorType">
+        <xs:annotation>
+            <xs:documentation>
+                Represents the altitude selection control, including increment
+                size and support for push/pull actions that activate managed
+                or open climb/descent modes.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Increment" type="xs:int"/>
+            <xs:element name="SupportsPush" type="xs:boolean"/>
+            <xs:element name="SupportsPull" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- V/S and FPA Selector -->
+    <xs:complexType name="VSFPASelectorType">
+        <xs:annotation>
+            <xs:documentation>
+                Represents the selector used to enter vertical speed (V/S) or
+                flight path angle (FPA) values, including valid ranges and
+                push/pull behavior.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="VSRange" type="RangeType"/>
+            <xs:element name="FPARange" type="RangeType"/>
+            <xs:element name="SupportsPush" type="xs:boolean"/>
+            <xs:element name="SupportsPull" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Mode Controls -->
+    <xs:complexType name="ModeControlsType">
+        <xs:annotation>
+            <xs:documentation>
+                Defines which vertical mode buttons or controls are available
+                on the VMCP, such as Open Climb, Open Descent, and Managed Modes.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="SupportsOPCLB" type="xs:boolean"/>
+            <xs:element name="SupportsOPDES" type="xs:boolean"/>
+            <xs:element name="SupportsManagedModes" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Annunciation Display -->
+    <xs:complexType name="AnnunciationDisplayType">
+        <xs:annotation>
+            <xs:documentation>
+                Describes the annunciation capabilities of the VMCP, including
+                whether active modes, armed modes, and target values are shown.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="ShowsActiveMode" type="xs:boolean"/>
+            <xs:element name="ShowsArmedMode" type="xs:boolean"/>
+            <xs:element name="ShowsTargetValues" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ===========================
+         Reusable Range Type
+         =========================== -->
+    <xs:complexType name="RangeType">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a numeric range with minimum and maximum values.
+                Used for vertical speed and flight path angle limits.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Min" type="xs:decimal"/>
+            <xs:element name="Max" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ===========================
+         Modes Definition
+         =========================== -->
+    <xs:complexType name="ModesType">
+        <xs:annotation>
+            <xs:documentation>
+                Container for all vertical modes supported by the VMCP.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Mode" type="ModeType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ModeType">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a single vertical mode, including its purpose,
+                activation method, required inputs, and system behavior.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Description" type="xs:string"/>
+            <xs:element name="Activation" type="xs:string"/>
+            <xs:element name="Inputs" type="InputsType" minOccurs="0"/>
+            <xs:element name="Behavior" type="xs:string"/>
+        </xs:sequence>
+
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="category" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <!-- Mode Inputs -->
+    <xs:complexType name="InputsType">
+        <xs:annotation>
+            <xs:documentation>
+                Lists the inputs required for a mode, such as selected altitude,
+                vertical speed, or flight path angle.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Input" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ===========================
+         Transitions Definition
+         =========================== -->
+    <xs:complexType name="TransitionsType">
+        <xs:annotation>
+            <xs:documentation>
+                Container for all mode transitions, including automatic and
+                pilot‑initiated transitions.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Transition" type="TransitionType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TransitionType">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a transition between two vertical modes, including the
+                trigger condition and optional explanatory notes.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:sequence>
+            <xs:element name="Trigger" type="xs:string"/>
+            <xs:element name="Notes" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+
+        <xs:attribute name="from" type="xs:string" use="required"/>
+        <xs:attribute name="to" type="xs:string" use="required"/>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <!-- ============================================================
+         VMCP XML Schema (Strict Version)
+         Fully aligned with vmcp.xml and enforcing valid mode names.
+         ============================================================ -->
+
+    <!-- ===========================
+         Enumerations: Valid Mode Names
+         =========================== -->
+    <xs:simpleType name="ModeNameType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="VS"/>
+            <xs:enumeration value="FPA"/>
+            <xs:enumeration value="OP CLB"/>
+            <xs:enumeration value="OP DES"/>
+            <xs:enumeration value="CLB"/>
+            <xs:enumeration value="DES"/>
+            <xs:enumeration value="ALT*"/>
+            <xs:enumeration value="ALT"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- ===========================
+         Root Element: VMCP
+         =========================== -->
+    <xs:element name="VMCP">
+        <xs:annotation>
+            <xs:documentation>
+                Root element representing the entire Vertical Mode Control Panel
+                subsystem, including panel layout, supported modes, and transitions.
+            </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Panel" type="PanelType"/>
+                <xs:element name="Modes" type="ModesType"/>
+                <xs:element name="Transitions" type="TransitionsType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- ===========================
+         Panel Definition
+         =========================== -->
+    <xs:complexType name="PanelType">
+        <xs:sequence>
+            <xs:element name="AltitudeSelector" type="AltitudeSelectorType"/>
+            <xs:element name="VSFPASelector" type="VSFPASelectorType"/>
+            <xs:element name="ModeControls" type="ModeControlsType"/>
+            <xs:element name="AnnunciationDisplay" type="AnnunciationDisplayType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Altitude Selector -->
+    <xs:complexType name="AltitudeSelectorType">
+        <xs:sequence>
+            <xs:element name="Increment" type="xs:int"/>
+            <xs:element name="SupportsPush" type="xs:boolean"/>
+            <xs:element name="SupportsPull" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- V/S and FPA Selector -->
+    <xs:complexType name="VSFPASelectorType">
+        <xs:sequence>
+            <xs:element name="VSRange" type="RangeType"/>
+            <xs:element name="FPARange" type="RangeType"/>
+            <xs:element name="SupportsPush" type="xs:boolean"/>
+            <xs:element name="SupportsPull" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Mode Controls -->
+    <xs:complexType name="ModeControlsType">
+        <xs:sequence>
+            <xs:element name="SupportsOPCLB" type="xs:boolean"/>
+            <xs:element name="SupportsOPDES" type="xs:boolean"/>
+            <xs:element name="SupportsManagedModes" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Annunciation Display -->
+    <xs:complexType name="AnnunciationDisplayType">
+        <xs:sequence>
+            <xs:element name="ShowsActiveMode" type="xs:boolean"/>
+            <xs:element name="ShowsArmedMode" type="xs:boolean"/>
+            <xs:element name="ShowsTargetValues" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Reusable Range Type -->
+    <xs:complexType name="RangeType">
+        <xs:sequence>
+            <xs:element name="Min" type="xs:decimal"/>
+            <xs:element name="Max" type="xs:decimal"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ===========================
+         Modes Definition
+         =========================== -->
+    <xs:complexType name="ModesType">
+        <xs:sequence>
+            <xs:element name="Mode" type="ModeType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ModeType">
+        <xs:sequence>
+
+            <!-- Mixed content allowed for narrative fields -->
+            <xs:element name="Description">
+                <xs:complexType mixed="true">
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="Activation">
+                <xs:complexType mixed="true">
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="Inputs" type="InputsType" minOccurs="0"/>
+
+            <xs:element name="Behavior">
+                <xs:complexType mixed="true">
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:sequence>
+
+        <xs:attribute name="name" type="ModeNameType" use="required"/>
+        <xs:attribute name="category" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <!-- Mode Inputs -->
+    <xs:complexType name="InputsType">
+        <xs:sequence>
+            <xs:element name="Input" type="xs:string" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- ===========================
+         Transitions Definition
+         =========================== -->
+    <xs:complexType name="TransitionsType">
+        <xs:sequence>
+            <xs:element name="Transition" type="TransitionType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="TransitionType">
+        <xs:sequence>
+
+            <!-- Trigger supports mixed content -->
+            <xs:element name="Trigger">
+                <xs:complexType mixed="true">
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+
+            <!-- Optional Notes -->
+            <xs:element name="Notes" minOccurs="0">
+                <xs:complexType mixed="true">
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:sequence>
+
+        <xs:attribute name="from" type="ModeNameType" use="required"/>
+        <xs:attribute name="to" type="ModeNameType" use="required"/>
+    </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mode name="CLB" category="Managed">
+    <Description>
+        Managed Climb (CLB) follows the vertical profile defined in the Flight
+        Management System (FMS), including altitude constraints and speed
+        targets appropriate for the climb phase.
+    </Description>
+
+    <Activation>
+        Activated by pushing the Altitude selector knob when the selected
+        altitude is above the current altitude and a valid FMS vertical profile
+        is available.
+    </Activation>
+
+    <Inputs>
+        <Input>Selected altitude</Input>
+        <Input>FMS vertical profile</Input>
+    </Inputs>
+
+    <Behavior>
+        The aircraft follows the FMS-defined climb path. Autothrust commands
+        climb thrust, and speed may be managed or selected depending on pilot
+        input. The mode transitions to ALT* when approaching the selected
+        altitude.
+    </Behavior>
+</Mode>

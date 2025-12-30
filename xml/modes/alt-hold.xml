@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mode name="ALT" category="Automatic">
+    <Description>
+        Altitude Hold (ALT) maintains the aircraft at the selected altitude
+        after altitude capture is complete or when the autopilot is engaged
+        while the aircraft is level.
+    </Description>
+
+    <Activation>
+        Automatically activated after ALT* completes altitude capture, or when
+        the autopilot is engaged while the aircraft is in level flight.
+    </Activation>
+
+    <Inputs>
+        <Input>Selected altitude</Input>
+    </Inputs>
+
+    <Behavior>
+        The aircraft maintains the selected altitude using pitch adjustments.
+        Vertical speed is commanded to zero. The mode remains active until the
+        pilot selects a new vertical mode or changes the selected altitude.
+    </Behavior>
+</Mode>
