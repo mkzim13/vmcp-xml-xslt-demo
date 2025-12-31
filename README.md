@@ -152,13 +152,21 @@ It is designed to be a **portfolio‑ready example** of structured content engin
 
 ## 📸 Screenshots
 
-*(Add screenshots of your rendered HTML here once generated.)*
+### Header and Panel Configuration
+![Header and Panel](screenshots/header-and-panel.png)
+
+### Mode Cards
+![Mode Cards](screenshots/mode-cards.png)
+
+### Transitions Table
+![Transitions Table](screenshots/transitions-table.png)
+
 
 ---
 
 ## 📄 License
 
-MIT License (or any license you prefer)
+MIT License 
 
 ---
 
