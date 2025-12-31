@@ -36,6 +36,46 @@ The CSS (`vmcp.css`) provides a clean, modern presentation.
 
 ---
 
+## Understanding What the XML Models (and What It Doesn’t)
+
+The `vmcp.xml` file models the **structure and behavior** of the Vertical Mode Control Panel (VMCP), not the **real‑time operational state** of the aircraft. This distinction is important when interpreting the data model.
+
+### What *is* modeled
+The XML defines the **static system architecture**, including:
+
+- The physical panel controls (altitude selector, V/S–FPA selector, mode controls)
+- The vertical modes available to the system (VS, FPA, OP CLB, OP DES, CLB, DES, ALT*, ALT)
+- The activation logic for each mode (push, pull, automatic)
+- The inputs each mode uses (selected altitude, vertical speed, FMS profile, etc.)
+- The transitions between modes (both pilot‑initiated and automatic)
+- The capabilities of the annunciation display (e.g., whether it shows active/armed modes)
+
+This information describes **what the system is** and **how it behaves**, similar to a technical manual or avionics specification.
+
+### What is *not* modeled
+The XML does **not** include:
+
+- Actual pilot‑entered values (e.g., “+1800 ft/min”)
+- Real‑time aircraft state (current altitude, current vertical speed)
+- Whether a specific input is within operational limits
+- The active or armed annunciation at any given moment
+- Color coding, flashing, or display formatting
+- Dynamic behavior of the annunciation display
+
+These elements belong to a **runtime state model**, which is outside the scope of this documentation‑oriented XML.
+
+### Why this distinction matters
+The XML is designed to be:
+
+- **Static** (describes the system)
+- **Deterministic** (always the same structure)
+- **Schema‑validatable** (XSD enforces structure, not operational rules)
+- **Transformable** (XSLT renders documentation from the model)
+
+It is *not* intended to simulate the aircraft’s live behavior or validate pilot inputs. This keeps the model clean, maintainable, and aligned with real‑world avionics documentation practices.
+
+---
+
 ## 📁 Repository Structure
 
 ```
